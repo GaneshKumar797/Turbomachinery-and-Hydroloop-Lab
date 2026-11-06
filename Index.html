@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turbomachinery and Hydroloop Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF2F3; --surface:#FFFFFF; --ink:#12262E; --muted:#4F6770; --line:#C5D3D7;
+  --teal:#0F7C8A; --flow:#1C8FC4; --brass:#9A6F12; --blade:#12262E;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0D1C22; --surface:#13282F; --ink:#E4EEF0; --muted:#9BB3BA; --line:#27424B;
+    --teal:#4FC3D1; --flow:#5DB8E6; --brass:#D9A93F; --blade:#E4EEF0;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0D1C22; --surface:#13282F; --ink:#E4EEF0; --muted:#9BB3BA; --line:#27424B;
+  --teal:#4FC3D1; --flow:#5DB8E6; --brass:#D9A93F; --blade:#E4EEF0;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.08rem/1.65 "Source Serif 4",Georgia,serif}
+h1,h2,h3,.brand,nav a,.btn{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--flow);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.05rem;text-decoration:none}
+nav{display:flex;gap:22px;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:500;font-size:.98rem;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:72px 0 80px}
+.hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 22px;font-weight:700}
+.hero p{max-width:34em;color:var(--muted);font-size:1.18rem;margin:0 0 30px}
+.btn{display:inline-block;padding:13px 22px;border-radius:6px;background:var(--teal);color:#fff;text-decoration:none;font-weight:600}
+:root[data-theme="dark"] .btn{color:#0D1C22}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#0D1C22}}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);margin-left:10px}
+.rotor{width:100%;max-width:440px;justify-self:center;display:block}
+.spin{transform-origin:200px 200px;animation:spin 14s linear infinite}
+.flow{stroke-dasharray:6 10;animation:dash 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dash{to{stroke-dashoffset:-32}}
+@media (prefers-reduced-motion:reduce){.spin,.flow{animation:none}}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(1.7rem,3.4vw,2.3rem);margin:0 0 12px;letter-spacing:-.01em;line-height:1.15}
+.lead{max-width:38em;color:var(--muted);margin:0 0 36px}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px}
+.areas h3{font-size:1.2rem;margin:0 0 6px;color:var(--teal)}
+.areas p{margin:0;font-size:1rem}
+
+.loop{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:300px;background:var(--surface)}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:1rem;vertical-align:top}
+th{font-family:"Bricolage Grotesque",sans-serif;font-weight:500;color:var(--muted);width:44%}
+
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:18px 0;border-bottom:1px solid var(--line)}
+.list strong{font-family:"Bricolage Grotesque",sans-serif;font-weight:500;display:block}
+.list span{color:var(--muted);font-size:.98rem}
+
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+.person .avatar{width:64px;height:64px;border-radius:50%;background:var(--line);margin-bottom:10px}
+.person strong{font-family:"Bricolage Grotesque",sans-serif;display:block}
+.person span{color:var(--muted);font-size:.96rem}
+
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:.95rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:820px){
+  .hero,.loop{grid-template-columns:1fr}
+  .hero{padding:44px 0 56px}
+  .btn.ghost{margin:10px 0 0}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">Turbomachinery and Hydroloop</a>
+    <nav aria-label="Main">
+      <a href="#research">Research</a>
+      <a href="#hydroloop">Hydroloop facility</a>
+      <a href="#publications">Publications</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <h1>Turbomachinery and Hydroloop</h1>
+      <p>We study how fluid moves through pumps, turbines and compressors, and test our ideas on the Hydroloop, our closed water-flow rig.</p>
+      <a class="btn" href="#research">See our research</a>
+      <a class="btn ghost" href="#contact">Join the lab</a>
+    </div>
+    <svg class="rotor" viewBox="0 0 400 400" role="img" aria-label="Animated centrifugal impeller with flow streamlines">
+      <circle cx="200" cy="200" r="185" fill="none" stroke="var(--line)" stroke-width="2"/>
+      <circle class="flow" cx="200" cy="200" r="168" fill="none" stroke="var(--flow)" stroke-width="3"/>
+      <circle class="flow" cx="200" cy="200" r="150" fill="none" stroke="var(--teal)" stroke-width="2" style="animation-direction:reverse"/>
+      <g class="spin" id="blades"></g>
+      <circle cx="200" cy="200" r="26" fill="var(--brass)"/>
+      <circle cx="200" cy="200" r="8" fill="var(--bg)"/>
+    </svg>
+  </div>
+
+  <section id="research">
+    <div class="wrap">
+      <h2>Research areas</h2>
+      <p class="lead">Replace these with your lab's real projects. Each block is one topic.</p>
+      <div class="areas">
+        <div><h3>Pumps and hydraulic turbines</h3><p>Impeller design, cavitation and efficiency across the operating range.</p></div>
+        <div><h3>Compressors and fans</h3><p>Blade loading, stall and surge behaviour in axial and centrifugal stages.</p></div>
+        <div><h3>CFD and measurement</h3><p>Simulation checked against pressure, flow and vibration data from the rig.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hydroloop">
+    <div class="wrap loop">
+      <div>
+        <h2>The Hydroloop facility</h2>
+        <p class="lead">A closed water loop for testing pumps and turbines under controlled flow, head and temperature. Update the figures to match your rig.</p>
+        <a class="btn" href="#contact">Request rig time</a>
+      </div>
+      <div class="scroll">
+        <table>
+          <tr><th>Flow range</th><td>0 – 100 m³/h (edit)</td></tr>
+          <tr><th>Head range</th><td>0 – 50 m (edit)</td></tr>
+          <tr><th>Test section</th><td>DN100 (edit)</td></tr>
+          <tr><th>Instruments</th><td>Pressure transducers, flowmeter, torque sensor, accelerometers</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="wrap">
+      <h2>Publications</h2>
+      <p class="lead">Newest first. Add title, authors and a link for each paper.</p>
+      <ul class="list">
+        <li><strong>Paper title goes here</strong><span>Author A, Author B · Journal name, 2026</span></li>
+        <li><strong>Another paper title</strong><span>Author A, Author C · Conference name, 2025</span></li>
+        <li><strong>Third paper title</strong><span>Author B, Author D · Journal name, 2025</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <h2>Team</h2>
+      <p class="lead">Add a photo and one line about each person's focus.</p>
+      <div class="team">
+        <div class="person"><div class="avatar"></div><strong>Dr. Punit Singh</strong><span>Professor and lab head</span></div>
+        <div class="person"><div class="avatar"></div><strong>Ganesh Kumar</strong><span>MTech student</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p class="lead">Students, collaborators and industry partners are welcome to get in touch.</p>
+      <p>Email: <a href="mailto:lab@example.edu">lab@example.edu</a><br>Turbomachinery and Hydroloop Lab, Your Department, Your Institute, Bengaluru</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Turbomachinery and Hydroloop Lab</span>
+    <span>Edit the text in this page to make it yours.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var g=document.getElementById('blades'),n=9,html='';
+  for(var i=0;i<n;i++){
+    html+='<path d="M200 200 C 215 150, 270 110, 330 90 C 280 135, 245 175, 232 214 Z" fill="var(--blade)" opacity=".92" transform="rotate('+(i*360/n)+' 200 200)"/>';
+  }
+  g.innerHTML=html;
+})();
+</script>
+</body>
+</html>
